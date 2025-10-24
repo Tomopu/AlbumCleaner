@@ -7,21 +7,40 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            NavigationStack {
-                NavigationLink(destination: SwipeCardDemo()) {
-                    Text("次のページ")
-                }
-            }
-        }
-    }
+//struct ContentView: View {
+//    var body: some View {
+//        VStack {
+//            NavigationStack {
+//                NavigationLink(destination: SwipeCardDemo()) {
+//                    Text("次のページ")
+//                }
+//            }
+//        }
+//    }
+//}
+
+//#Preview {
+//    SwipeCardDemo()
+//}
+
+public struct StackSwipeableCardConfiguratioin {
+    /// stackされたviewの小さくなる倍率
+    public let calcScale: () -> CGFloat
+    /// stackされたviewがズレる割合
+    public let calcOffset: () -> CGSize
+    /// 移動量に応じた回転量
+    public let calcRotation: (_ translation: CGSize) -> Angle
+    /// 左右に飛んでいった先の位置
+    public let threwLeft: (point: CGSize, duration: Double)
+    public let threwRight: (point: CGSize, duration: Double)
 }
 
-#Preview {
-    SwipeCardDemo()
+public enum CardViewEndedMoveAction {
+    case throwLeft
+    case throwRight
+    case none
 }
+
 
 
 struct SwipeCardDemo: View {
